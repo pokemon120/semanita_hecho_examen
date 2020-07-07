@@ -44,13 +44,13 @@ public class PortalWebrMySqlRepositorio implements PortalWebRepositorio{
 	public PortalWeb insertaActualizaPortalWeb(PortalWeb obj) {
 		PortalWeb salida = null;
 		if (obj.getIdPortal() == 0) {
-			jdbcTemplate.update("insert into portalWeb values(null,?,?,?,?,?,?,?)",
+			jdbcTemplate.update("insert into portalweb values(null,?,?,?,?,?,?,?)",
 			new Object[] {obj.getNombre(), obj.getRuta(), obj.getPais(), obj.getFechaLanzamiento(), obj.getInscriptores(), obj.getIdioma(),obj.getCategoria().getIdCategoria()});	
-			List<PortalWeb> lista = jdbcTemplate.query("select m.*,d.nombre from portalWeb m inner join categoria d on m.idCategoria = d.idCategoria order by m.idPortal desc limit 0, 1",new Object[] {} ,mapperPortal);
+			List<PortalWeb> lista = jdbcTemplate.query("select m.*,d.nombre from portalweb m inner join categoria d on m.idCategoria = d.idCategoria order by m.idPortal desc limit 0, 1",new Object[] {} ,mapperPortal);
 			salida = lista.get(0);
 		}else {
-			jdbcTemplate.update("update portalWeb set nombre=?,ruta=?,pais=?,fechaLanzamiento=?,inscriptores =?,idioma =?, idCategoria = ? where idPortal=?", new Object[] {obj.getNombre(), obj.getRuta(), obj.getPais(), obj.getFechaLanzamiento(), obj.getInscriptores(), obj.getIdioma(), obj.getCategoria().getIdCategoria(), obj.getIdPortal()});
-			List<PortalWeb> lista = jdbcTemplate.query("select m.*,d.nombre from portalWeb m inner join categoria d on m.idCategoria = d.idCategoria where m.idPortal =?",new Object[] {obj.getIdPortal()} ,mapperPortal);
+			jdbcTemplate.update("update portalweb set nombre=?,ruta=?,pais=?,fechaLanzamiento=?,inscriptores =?,idioma =?, idCategoria = ? where idPortal=?", new Object[] {obj.getNombre(), obj.getRuta(), obj.getPais(), obj.getFechaLanzamiento(), obj.getInscriptores(), obj.getIdioma(), obj.getCategoria().getIdCategoria(), obj.getIdPortal()});
+			List<PortalWeb> lista = jdbcTemplate.query("select m.*,d.nombre from portalweb m inner join categoria d on m.idCategoria = d.idCategoria where m.idPortal =?",new Object[] {obj.getIdPortal()} ,mapperPortal);
 			salida = lista.get(0);
 		}
 		return salida;
@@ -58,18 +58,18 @@ public class PortalWebrMySqlRepositorio implements PortalWebRepositorio{
 
 	@Override
 	public void eliminaPortalWeb(int idPortal) {
-		jdbcTemplate.update("delete from portalWeb where idPortal = ?",new Object[] {idPortal});		
+		jdbcTemplate.update("delete from portalweb where idPortal = ?",new Object[] {idPortal});		
 	}
 
 	@Override
 	public List<PortalWeb> listaPortalWeb() {
-		List<PortalWeb> lista = jdbcTemplate.query("select m.*,d.nombre from portalWeb m inner join categoria d on m.idCategoria = d.idCategoria", new Object[] {} ,mapperPortal);
+		List<PortalWeb> lista = jdbcTemplate.query("select m.*,d.nombre from portalweb m inner join categoria d on m.idCategoria = d.idCategoria", new Object[] {} ,mapperPortal);
 		return lista;
 	}
 
 	@Override
 	public List<PortalWeb> listaPortalWebPorNombre(String nom) {
-		List<PortalWeb> lista = jdbcTemplate.query("select m.*,d.nombre from portalWeb m inner join categoria d on m.idCategoria = d.idCategoria where m.nombre like ?", new Object[] {nom} ,mapperPortal);
+		List<PortalWeb> lista = jdbcTemplate.query("select m.*,d.nombre from portalweb m inner join categoria d on m.idCategoria = d.idCategoria where m.nombre like ?", new Object[] {nom} ,mapperPortal);
 		return lista;
 	}
 
