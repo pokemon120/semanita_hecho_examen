@@ -17,7 +17,7 @@
 <body> 
 
  <div class="container">
- <h1>Crud de PortalWeb (<label style="color:fuchsia">Te castigaré en el nombre de la Luna!</label>)</h1>
+ <h1>Crud de PortalWeb</h1>
 		 <div class="col-md-23" >  
 			  <form id="idFormElimina" action="eliminaCrudPortalWeb">
 			  		<input type="hidden" id="id_elimina" name="id">
